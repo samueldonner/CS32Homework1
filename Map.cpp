@@ -14,47 +14,47 @@ Map::Map()
     
 }
 
-bool Map::empty()
+const bool Map::empty()
 {
     return true;
 }
 
-int Map::size()
+const int Map::size()
 {
     return 0;
 }
 
-bool Map::insert(const std::string& key, const double& value)
+bool Map::insert(KeyType& key, ValueType& value)
 {
     return true;
 }
 
-bool Map::update(const std::string& key, const double& value)
+bool Map::update(KeyType& key, ValueType& value)
 {
     return true;
 }
 
-bool Map::insertOrUpdate(const std::string& key, const double& value)
+bool Map::insertOrUpdate(KeyType& key, ValueType& value)
 {
     return true;
 }
 
-bool Map::erase(const std::string& key)
+bool Map::erase(KeyType& key)
 {
     return true;
 }
 
-const bool Map::contains(const std::string& key)
+const bool Map::contains(KeyType& key)
 {
     return true;
 }
 
-const bool Map::get(const std::string& key, double& value)
+const bool Map::get(KeyType& key, ValueType& value)
 {
     return true;
 }
 
-const bool Map::get(int i, std::string& key, double& value)
+const bool Map::get(int i, KeyType&, ValueType& value)
 {
     return true;
 }
