@@ -5,9 +5,9 @@
 //  Created by Samuel Donner on 1/16/16.
 //  Copyright © 2016 Samuel Donner. All rights reserved.
 //
-/*
-#ifndef MAP_INCLUDED
-#define MAP_INCLUDED
+
+#ifndef NEWMAP_INCLUDED
+#define NEWMAP_INCLUDED
 
 #include <string>
 
@@ -20,6 +20,14 @@ class Map
 {
 public:
     Map();         // Create an empty map (i.e., one with no key/value pairs)
+    
+    Map(int mapSize);
+    
+    ~Map();
+    
+    Map(const Map& other);
+    
+    Map& operator=(const Map& rhs);
     
     bool empty() const;  // Return true if the map is empty, otherwise false.
     
@@ -71,7 +79,7 @@ public:
     
     void swap(Map& other);
     // Exchange the contents of this map with the other one.
-
+    
 private:
     struct dataStruct
     {
@@ -79,9 +87,12 @@ private:
         ValueType value;
     };
     
-    dataStruct pairs[DEFAULT_MAX_ITEMS];
+    int m_maximumSize;
+    
+    dataStruct* pairs;
+    
     
     int sizeCounter;
 };
 
-#endif /* MAP_INCLUDED */
+#endif /* NEWMAP_INCLUDED */

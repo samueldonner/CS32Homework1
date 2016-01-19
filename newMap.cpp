@@ -1,19 +1,62 @@
-//
-//  Map.cpp
-//  CS32Homework1
-//
-//  Created by Samuel Donner on 1/18/16.
-//  Copyright © 2016 Samuel Donner. All rights reserved.
-//
-/*
 #include <iostream>
-#include "Map.h"
+#include "newMap.h"
 
 using namespace std;
 
 Map::Map()
 {
     sizeCounter = 0;
+    m_maximumSize = DEFAULT_MAX_ITEMS;
+    pairs = new dataStruct[DEFAULT_MAX_ITEMS];
+    
+}
+
+Map::Map(int mapSize)
+{
+    sizeCounter = 0;
+    m_maximumSize = mapSize;
+    pairs = new dataStruct[mapSize];
+}
+
+Map::Map(const Map& other)
+{
+    m_maximumSize = other.m_maximumSize;
+    sizeCounter = other.sizeCounter;
+    pairs = new dataStruct[DEFAULT_MAX_ITEMS];
+    for( int i = 0; i < other.size(); i++ )
+    {
+        KeyType keyHolder;
+        ValueType valueHolder;
+        
+        other.get(i, keyHolder, valueHolder);
+        insert(keyHolder, valueHolder);
+    }
+}
+
+Map& Map::operator=(const Map& rhs)
+{
+    if(&rhs != this)
+    {
+        delete [] pairs;
+        Map mapHolder(rhs);
+        m_maximumSize = mapHolder.m_maximumSize;
+        pairs = new dataStruct[mapHolder.m_maximumSize];
+        sizeCounter = rhs.sizeCounter;
+        for( int i = 0; i < rhs.size(); i++ )
+        {
+            KeyType keyHolder;
+            ValueType valueHolder;
+            
+            mapHolder.get(i,keyHolder,valueHolder);
+            insert(keyHolder,valueHolder);
+        }
+    }
+    return *this;
+}
+
+Map::~Map()
+{
+    delete [] pairs;
 }
 
 bool Map::empty() const
@@ -35,8 +78,10 @@ int Map::size() const
 
 bool Map::insert(const KeyType& key, const ValueType& value)
 {
-    if (contains(key))
+    if (contains(key) || size()>=m_maximumSize)
+    {
         return false;
+    }
     
     pairs[sizeCounter].key = key;
     pairs[sizeCounter].value = value;
@@ -157,44 +202,12 @@ bool Map::get(int i, KeyType& key, ValueType& value) const
 
 void Map::swap(Map& other)
 {
-    dataStruct temp[DEFAULT_MAX_ITEMS];
-    int otherSize = other.size();
-    int thisMapSize = size();
-    
-    for( int i = 0; i < otherSize; i++ )
-    {
-        KeyType keyHolder;
-        ValueType valueHolder;
-        
-        other.get(i,keyHolder,valueHolder);
-        temp[i].key = keyHolder;
-        temp[i].value = valueHolder;
-        //copies other into temp
-    }
-    
-    for( int i = 0; i < thisMapSize; i++ )
-    {
-        KeyType keyHolder;
-        ValueType valueHolder;
-        
-        get(i,keyHolder,valueHolder);
-        other.pairs[i].key = keyHolder;
-        other.pairs[i].value = valueHolder;
-        //copies thisMap into other
-    }
-    
-    for( int i = 0; i < otherSize; i++)
-    {
-        insert(temp[i].key, temp[i].value);
-    }
-    
-    int tempSize;
-    tempSize = other.size();
-    other.sizeCounter = thisMapSize;
-    sizeCounter = tempSize;
-    
+    Map tempMap;
+    tempMap = other;
+    other = *this;
+    *this = tempMap;
     
 }
 
 
-*/
+

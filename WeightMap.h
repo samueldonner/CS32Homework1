@@ -9,7 +9,7 @@
 #ifndef WeightMap_h
 #define WeightMap_h
 
-#include "Map.h"
+#include "newMap.h"
 
 class WeightMap
 {

@@ -1,12 +1,4 @@
-//
-//  testWeightMap.cpp
-//  CS32Homework1
-//
-//  Created by Samuel Donner on 1/18/16.
-//  Copyright © 2016 Samuel Donner. All rights reserved.
-//
-
-#include "WeightMap.h"
+/*#include "WeightMap.h"
 #include <iostream>
 #include <cassert>
 #include <sstream>
@@ -69,4 +61,4 @@ int main()
     
     assert(weightLoss4.size()==200);
     cout << "All tests passed!" << endl;
-}
+}*/
