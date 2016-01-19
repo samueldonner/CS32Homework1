@@ -30,13 +30,14 @@ double WeightMap::weight(std::string name) const
 
 bool WeightMap::adjustWeight(std::string name, double amt)
 {
-    if(!m_weightMap.contains(name) || weight(name)+amt<0 )
+    double weightHolder;
+    if(!m_weightMap.get(name, weightHolder) || weight(name)+amt<0 )
     {
         return false;
     }
     
-    double weight;
-    m_weightMap.insert(name,weight+amt);
+    weightHolder += amt;
+    m_weightMap.update(name,weightHolder);
     return true;
 }
 
