@@ -21,7 +21,7 @@ Map::Map(int mapSize)
 Map::Map(const Map& other)
 {
     m_maximumSize = other.m_maximumSize;
-    sizeCounter = other.sizeCounter;
+    sizeCounter = 0;
     pairs = new dataStruct[DEFAULT_MAX_ITEMS];
     for( int i = 0; i < other.size(); i++ )
     {
@@ -41,11 +41,12 @@ Map& Map::operator=(const Map& rhs)
         Map mapHolder(rhs);
         m_maximumSize = mapHolder.m_maximumSize;
         pairs = new dataStruct[mapHolder.m_maximumSize];
-        sizeCounter = rhs.sizeCounter;
+        sizeCounter = 0;
         for( int i = 0; i < rhs.size(); i++ )
         {
             KeyType keyHolder;
             ValueType valueHolder;
+            
             
             mapHolder.get(i,keyHolder,valueHolder);
             insert(keyHolder,valueHolder);
