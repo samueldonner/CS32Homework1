@@ -10,28 +10,49 @@ WeightMap::WeightMap()
 
 bool WeightMap::enroll(std::string name, double startWeight)
 {
-    if(!m_weightMap.contains(name) && m_weightMap.size()<DEFAULT_MAX_ITEMS)
+    if(!m_weightMap.contains(name) && m_weightMap.size()<DEFAULT_MAX_ITEMS && startWeight >= 0.0)
     {
-        
+        m_weightMap.insert(name, startWeight);
+        return true;
     }
+    return false;
 }
 
-const double weight(std::string name)
+double WeightMap::weight(std::string name) const
 {
-    return 0;
+    double weight;
+    if( m_weightMap.get(name,weight) )
+    {
+        return weight;
+    }
+    return -1;
 }
 
-bool adjustWeight(std::string name, double amt)
+bool WeightMap::adjustWeight(std::string name, double amt)
 {
+    if(!m_weightMap.contains(name) || weight(name)+amt<0 )
+    {
+        return false;
+    }
+    
+    double weight;
+    m_weightMap.insert(name,weight+amt);
     return true;
 }
 
-const int size()
+int WeightMap::size() const
 {
-    return 0;
+    return m_weightMap.size();
 }
 
-const void print()
+void WeightMap::print() const
 {
-    
+    for( int i = 0; i < m_weightMap.size(); i++ )
+    {
+        std::string nameHolder;
+        double weightHolder;
+        m_weightMap.get(i, nameHolder, weightHolder);
+        
+        cout << nameHolder << " " << weightHolder << endl;
+    }
 }

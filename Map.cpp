@@ -16,7 +16,7 @@ Map::Map()
     sizeCounter = 0;
 }
 
-const bool Map::empty()
+bool Map::empty() const
 {
     if( sizeCounter == 0 )
     {
@@ -28,7 +28,7 @@ const bool Map::empty()
     }
 }
 
-const int Map::size()
+int Map::size() const
 {
     return sizeCounter;
 }
@@ -117,7 +117,7 @@ bool Map::erase(const KeyType& key)
     return false;
 }
 
-const bool Map::contains(const KeyType& key)
+bool Map::contains(const KeyType& key) const
 {
     for( int i = 0; i < sizeCounter; i++ )
     {
@@ -130,13 +130,13 @@ const bool Map::contains(const KeyType& key)
     return false;
 }
 
-const bool Map::get(const KeyType& key, ValueType& value)
+bool Map::get(const KeyType& key, ValueType& value) const
 {
     for( int i = 0; i < sizeCounter; i++ )
     {
         if(key == pairs[i].key)
         {
-            pairs[i].value = value;
+            value = pairs[i].value;
             return true;
         }
         
@@ -144,7 +144,7 @@ const bool Map::get(const KeyType& key, ValueType& value)
     return false;
 }
 
-const bool Map::get(int i, KeyType& key, ValueType& value)
+bool Map::get(int i, KeyType& key, ValueType& value) const
 {
     if( i >= 0 && i < size() )
     {
