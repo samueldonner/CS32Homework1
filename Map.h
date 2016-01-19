@@ -6,11 +6,15 @@
 //  Copyright © 2016 Samuel Donner. All rights reserved.
 //
 
-#ifndef Header_h
-#define Header_h
+#ifndef MAP_INCLUDED
+#define MAP_INCLUDED
+
+#include <string>
 
 typedef std::string KeyType;
 typedef double ValueType;
+
+const int DEFAULT_MAX_ITEMS = 200;
 
 class Map
 {
@@ -21,20 +25,20 @@ public:
     
     const int size();    // Return the number of key/value pairs in the map.
     
-    bool insert(KeyType& key, ValueType& value);
+    bool insert(const KeyType& key, const ValueType& value);
     // If key is not equal to any key currently in the map, and if the
     // key/value pair can be added to the map, then do so and return true.
     // Otherwise, make no change to the map and return false (indicating
     // that either the key is already in the map, or the map has a fixed
     // capacity and is full).
     
-    bool update(KeyType& key, ValueType& value);
+    bool update(const KeyType& key, const ValueType& value);
     // If key is equal to a key currently in the map, then make that key no
     // longer map to the value it currently maps to, but instead map to
     // the value of the second parameter; return true in this case.
     // Otherwise, make no change to the map and return false.
     
-    bool insertOrUpdate(KeyType& key, ValueType& value);
+    bool insertOrUpdate(const KeyType& key, const ValueType& value);
     // If key is equal to a key currently in the map, then make that key no
     // longer map to the value it currently maps to, but instead map to
     // the value of the second parameter; return true in this case.
@@ -44,16 +48,16 @@ public:
     // that the key is not already in the map and the map has a fixed
     // capacity and is full).
     
-    bool erase(KeyType& key);
+    bool erase(const KeyType& key);
     // If key is equal to a key currently in the map, remove the key/value
     // pair with that key from the map and return true.  Otherwise, make
     // no change to the map and return false.
     
-    const bool contains(KeyType& key);
+    const bool contains(const KeyType& key);
     // Return true if key is equal to a key currently in the map, otherwise
     // false.
     
-    const bool get(KeyType& key, ValueType& value);
+    const bool get(const KeyType& key, ValueType& value);
     // If key is equal to a key currently in the map, set value to the
     // value in the map that that key maps to, and return true.  Otherwise,
     // make no change to the value parameter of this function and return
@@ -67,6 +71,17 @@ public:
     
     void swap(Map& other);
     // Exchange the contents of this map with the other one.
+
+private:
+    struct dataStruct
+    {
+        KeyType key;
+        ValueType value;
+    };
+    
+    dataStruct pairs[DEFAULT_MAX_ITEMS];
+    
+    int sizeCounter;
 };
 
-#endif /* Header_h */
+#endif /* MAP_INCLUDED */
